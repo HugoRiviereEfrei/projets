@@ -46,7 +46,24 @@ situer dans le répertoire principal où se trouve le programme main.py et au m�
                 
         
 
-        
+def enlever():
+    liste = os.listdir("..\cleaned")
+    for name in liste:
+        with open(name, "r", encoding="utf-8") as f:
+            ligne = f.read()
+        mod = ""
+        for i in range(len(ligne)):
+            if ligne[i] == "-":
+                if i > 0 and ligne[i - 1] == "\n":
+                    mod += ""
+                else:
+                    mod += " "
+            elif ligne[i] in ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~']:
+                mod += " "
+            else:
+                mod += ligne[i]
+        with open(name, "w", encoding="utf-8") as f:
+            f.write(mod)        
 
 
 
@@ -57,3 +74,4 @@ tab_nom_president = nom_des_presidents()
 nom_prenom_presiedent = prenom_des_presidents
 
 minuscule()
+enlever()

@@ -66,3 +66,44 @@ def enlever():
         with open(name, "w", encoding="utf-8") as f:
             f.write(mod)
 
+def word_occ(text):
+    word_counts = {}
+    for file in text:
+        with open(file, "r", encoding="utf-8") as f:
+            ligne = f.read()
+
+        words = ligne.split()
+        
+
+        for word in words:
+            if word not in word_counts:
+                word_counts[word] = 1
+            else:
+                word_counts[word] += 1
+
+    return word_counts
+
+
+def idf():
+    os.chdir("cleaned")
+    doc_len = len(os.listdir())
+    
+    idfs = word_occ(os.listdir())
+
+    for word, score in idfs.items():
+        idfs[word] = math.log(doc_len / (score + 1))
+
+    return idfs
+        
+
+        
+
+
+
+
+            
+            
+tab_nom_president = nom_des_presidents()
+nom_prenom_presiedent = prenom_des_presidents
+
+print(idf())

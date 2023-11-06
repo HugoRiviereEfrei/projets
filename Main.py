@@ -72,6 +72,6 @@ def enlever():
             
 tab_nom_president = nom_des_presidents()
 nom_prenom_presiedent = prenom_des_presidents
-
+print(tab_nom_president)
 minuscule()
 enlever()

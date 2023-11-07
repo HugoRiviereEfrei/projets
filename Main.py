@@ -66,22 +66,95 @@ def enlever():
         with open(name, "w", encoding="utf-8") as f:
             f.write(mod)
 
-def word_occ(text):
-    word_counts = {}
+def word_occ_pres(text):
+    pres =[[]*len(text)]
     for file in text:
-        with open(file, "r", encoding="utf-8") as f:
-            ligne = f.read()
+        word_counts = {}
+        if "Chirac" in file:
+            with open(file, "r", encoding="utf-8") as f:
+                ligne = f.read()
 
-        words = ligne.split()
+            words = ligne.split()
+            
+
+            for word in words:
+                if word not in word_counts:
+                    word_counts[word] = 1
+                else:
+                    word_counts[word] += 1
+            pres[0].append(word_counts)
         
+        elif "Giscard" in file:
+            with open(file, "r", encoding="utf-8") as f:
+                ligne = f.read()
 
-        for word in words:
-            if word not in word_counts:
-                word_counts[word] = 1
-            else:
-                word_counts[word] += 1
+            words = ligne.split()
+            
 
-    return word_counts
+            for word in words:
+                if word not in word_counts:
+                    word_counts[word] = 1
+                else:
+                    word_counts[word] += 1
+            pres[1].append(word_counts)
+        
+        elif "Hollande" in file:
+            with open(file, "r", encoding="utf-8") as f:
+                ligne = f.read()
+
+            words = ligne.split()
+            
+
+            for word in words:
+                if word not in word_counts:
+                    word_counts[word] = 1
+                else:
+                    word_counts[word] += 1
+            pres[2].append(word_counts)
+        
+        elif "Macron" in file:
+            with open(file, "r", encoding="utf-8") as f:
+                ligne = f.read()
+
+            words = ligne.split()
+            
+
+            for word in words:
+                if word not in word_counts:
+                    word_counts[word] = 1
+                else:
+                    word_counts[word] += 1
+            pres[3].append(word_counts)
+        
+        elif "Mitterrand" in file:
+            with open(file, "r", encoding="utf-8") as f:
+                ligne = f.read()
+
+            words = ligne.split()
+            
+
+            for word in words:
+                if word not in word_counts:
+                    word_counts[word] = 1
+                else:
+                    word_counts[word] += 1
+            pres[4].append(word_counts)
+        
+        elif "Sarkozy" in file:
+            with open(file, "r", encoding="utf-8") as f:
+                ligne = f.read()
+
+            words = ligne.split()
+            
+
+            for word in words:
+                if word not in word_counts:
+                    word_counts[word] = 1
+                else:
+                    word_counts[word] += 1
+            pres[5].append(word_counts)
+    res = [pre for pre in pres if pre != []]
+    return res
 
 
 def idf():

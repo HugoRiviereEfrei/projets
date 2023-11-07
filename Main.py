@@ -85,7 +85,7 @@ def word_occ(text):
 
 
 def idf():
-    os.chdir("cleaned")
+    os.chdir("..\cleaned")
     doc_len = len(os.listdir())
     
     idfs = word_occ(os.listdir())
@@ -96,14 +96,28 @@ def idf():
     return idfs
         
 
+def mot_non_important(dico):
+    tab = []
+    for cle, valeur in dico.items():
+        if valeur == 0:
+            tab.append(cle)
+    return tab
         
 
-
-
+def mot_plus_important(dico):
+    tab = []
+    val = max(dico.values())
+    for cle, valeur in dico.items():
+        if valeur == val:
+            tab.append(cle)
+    return tab
 
             
             
 tab_nom_president = nom_des_presidents()
 nom_prenom_presiedent = prenom_des_presidents
-
+minuscule()
+enlever()
 print(idf())
+mot_non_important(idf())
+print(mot_plus_important(idf()))

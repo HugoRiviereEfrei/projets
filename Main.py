@@ -4,14 +4,18 @@ import math
 def nom_des_presidents():
     """Recupere le Nom des president dans les titre et les ressort dans un tableau"""
     liste = os.listdir("speeches")
+    liste = [fichier for fichier in liste if fichier.endswith(".txt")]
     tab = []
     for name in liste:
-        name = name[11:]
-        name = name.replace(".txt", "")
-        if "1" in name:
-            name = name.replace("1","")
-        tab = [n for n in tab if '2' not in n]
-        tab.append(name)       
+        if name[-3:] != "txt":
+            liste.remove(name)
+        else :
+            name = name[11:]
+            name = name.replace(".txt", "")
+            if "1" in name:
+                name = name.replace("1","")
+            tab = [n for n in tab if '2' not in n]
+            tab.append(name)       
     return tab
         
 
@@ -44,13 +48,13 @@ situer dans le répertoire principal où se trouve le programme main.py et au m�
             for l in liste:
                 f2.write(l)
         os.chdir("../speeches")
+        
 
 def enlever():
     liste = os.listdir("..\cleaned")
     for name in liste:
         with open(name, "r", encoding="utf-8") as f:
             ligne = f.read()
-
         mod = ""
         for i in range(len(ligne)):
             if ligne[i] == "-":
@@ -58,14 +62,19 @@ def enlever():
                     mod += ""
                 else:
                     mod += " "
-            elif ligne[i] in "!#$%&'()*+, -./:;<=>?@[]^_`{|}~":
+            if ligne[i] == "'":
+                if ligne[i] == "l'":
+                    mod = random.choice(["a","b"])
+                else :
+                    mod = "e"
+            elif ligne[i] in "!#$%&()*+,./:;<=>?@[]^_`{|}~":
                 mod += " "
             else:
                 mod += ligne[i]
-
         with open(name, "w", encoding="utf-8") as f:
             f.write(mod)
-
+            
+"""
 def word_occ_pres(text):
     pres =[[]*len(text)]
     for file in text:
@@ -184,13 +193,12 @@ def mot_plus_important(dico):
         if valeur == val:
             tab.append(cle)
     return tab
-
+""" 
+#Tout a refaire
             
             
 tab_nom_president = nom_des_presidents()
 nom_prenom_presiedent = prenom_des_presidents
 minuscule()
 enlever()
-print(idf())
-mot_non_important(idf())
-print(mot_plus_important(idf()))
+

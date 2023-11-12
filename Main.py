@@ -1,5 +1,6 @@
 import os
 import math
+import random
 
 def nom_des_presidents():
     """Recupere le Nom des president dans les titre et les ressort dans un tableau"""
@@ -74,204 +75,58 @@ def enlever():
         with open(name, "w", encoding="utf-8") as f:
             f.write(mod)
             
-"""
-def word_occ_pres(text):
-    pres =[[]*len(text)]
-    for file in text:
-        word_counts = {}
-        if "Chirac" in file:
-            with open(file, "r", encoding="utf-8") as f:
-                ligne = f.read()
-
-            words = ligne.split()
             
-
-            for word in words:
-                if word not in word_counts:
-                    word_counts[word] = 1
-                else:
-                    word_counts[word] += 1
-            pres[0].append(word_counts)
-        
-        elif "Giscard" in file:
-            with open(file, "r", encoding="utf-8") as f:
-                ligne = f.read()
-
-            words = ligne.split()
-            
-
-            for word in words:
-                if word not in word_counts:
-                    word_counts[word] = 1
-                else:
-                    word_counts[word] += 1
-            pres[1].append(word_counts)
-        
-        elif "Hollande" in file:
-            with open(file, "r", encoding="utf-8") as f:
-                ligne = f.read()
-
-            words = ligne.split()
-            
-
-            for word in words:
-                if word not in word_counts:
-                    word_counts[word] = 1
-                else:
-                    word_counts[word] += 1
-            pres[2].append(word_counts)
-        
-        elif "Macron" in file:
-            with open(file, "r", encoding="utf-8") as f:
-                ligne = f.read()
-
-            words = ligne.split()
-            
-
-            for word in words:
-                if word not in word_counts:
-                    word_counts[word] = 1
-                else:
-                    word_counts[word] += 1
-            pres[3].append(word_counts)
-        
-        elif "Mitterrand" in file:
-            with open(file, "r", encoding="utf-8") as f:
-                ligne = f.read()
-
-            words = ligne.split()
-            
-
-            for word in words:
-                if word not in word_counts:
-                    word_counts[word] = 1
-                else:
-                    word_counts[word] += 1
-            pres[4].append(word_counts)
-        
-        elif "Sarkozy" in file:
-            with open(file, "r", encoding="utf-8") as f:
-                ligne = f.read()
-
-            words = ligne.split()
-            
-
-            for word in words:
-                if word not in word_counts:
-                    word_counts[word] = 1
-                else:
-                    word_counts[word] += 1
-            pres[5].append(word_counts)
-    res = [pre for pre in pres if pre != []]
-    return res
-
-
-def idf():
-    os.chdir("..\cleaned")
-    doc_len = len(os.listdir())
-    
-    idfs = word_occ(os.listdir())
-
-    for word, score in idfs.items():
-        idfs[word] = math.log(doc_len / (score + 1))
-
-    return idfs
-        
-
-def mot_non_important(dico):
-    tab = []
-    for cle, valeur in dico.items():
-        if valeur == 0:
-            tab.append(cle)
-    return tab
-        
-
-def mot_plus_important(dico):
-    tab = []
-    val = max(dico.values())
-    for cle, valeur in dico.items():
-        if valeur == val:
-            tab.append(cle)
-    return tab
-""" 
-
 def calculer_frequence_mots(chaine):
-
     mots = chaine.split()
     frequence_mots = {}
-
     for mot in mots:
-
         mot = mot.lower()
         frequence_mots[mot] = frequence_mots.get(mot, 0) + 1
-
     return frequence_mots
 
 def TF_par_texte():
     os.chdir("cleaned")
     analyse_textes = {}
-
     for texte in os.listdir():
-
         with open(texte, "r") as t:
             analyse_textes[texte]=calculer_frequence_mots(t)
-
     return analyse_textes
-
+    
 def calculer_idf(repertoire_corpus):
-
     nb_documents_contenant_mot = {}
     nb_doc = 0
-
     for fichier in os.listdir(repertoire_corpus):
-
         nb_doc += 1
         mots_dans_document = set()
         chemin_fichier = os.path.join(repertoire_corpus, fichier)
-
         with open(chemin_fichier, 'r', encoding='utf-8') as f:
             mots = f.read().split()
             mots_dans_document.update(set(mots))
-
         for mot in mots_dans_document:
-
             if mot in nb_documents_contenant_mot:
                 nb_documents_contenant_mot[mot] += 1
-
             else:
                 nb_documents_contenant_mot[mot] = 1
-    
     for mot in nb_documents_contenant_mot:
         idf_scores[mot]= math.log(nb_doc / nb_documents_contenant_mot[mot])
-            
-
     return idf_scores
 
 def calculer_tf_idf(repertoire_corpus):
-
     idf_scores = calculer_idf(repertoire_corpus)
     vecteurs_tfidf = []
     mots_uniques = set()
-
     for fichier in os.listdir(repertoire_corpus):
-
         chemin_fichier = os.path.join(repertoire_corpus, fichier)
-
         with open(chemin_fichier, 'r', encoding='utf-8') as f:
-
             contenu = f.read()
             tf_scores = calculer_frequence_mots(contenu)
             tfidf_scores = {mot: tf_scores[mot] * idf_scores[mot] for mot in tf_scores}
-
             mots_uniques.update(set(tfidf_scores.keys()))
             vecteurs_tfidf.append(tfidf_scores)
-
     matrice_tfidf = [[document.get(mot, 0) for mot in mots_uniques] for document in vecteurs_tfidf]
-
     return matrice_tfidf
 
 def calculer_transposee(matrice):
-    
     nb_lignes = len(matrice)
     nb_colonnes = len(matrice[0])
     transposee = [[matrice[j][i] for j in range(nb_lignes)] for i in range(nb_colonnes)]

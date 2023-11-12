@@ -95,6 +95,7 @@ def TF_par_texte():
 def calculer_idf(repertoire_corpus):
     nb_documents_contenant_mot = {}
     nb_doc = 0
+    idf_scores = {}
     for fichier in os.listdir(repertoire_corpus):
         nb_doc += 1
         mots_dans_document = set()

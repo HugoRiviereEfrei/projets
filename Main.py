@@ -114,22 +114,27 @@ def calculer_idf(repertoire_corpus):
 
 
 def calculer_tf_idf(repertoire_corpus):
-    idf_scores = calculer_idf(repertoire_corpus)
+    tfidf_dict = {}
+    
+    files_names = [file for file in os.listdir(repertoire_corpus) if file.endswith(".txt")]
 
-    # Parcourir les fichiers dans le répertoire
-    for fichier in os.listdir(repertoire_corpus):
-        if fichier.endswith(".txt"):
-            chemin_fichier = os.path.join(repertoire_corpus, fichier)
-            with open(chemin_fichier, 'r', encoding='utf-8') as f:
-                contenu = f.read()
-                # Calculer les scores TF pour chaque document
-                tf_scores = calculer_frequence_mots(contenu)
+    for file_name in files_names:
+        file_path = os.path.join(f"cleaned", file_name)
 
-                # Calculer les scores TF-IDF en multipliant les scores TF par les scores IDF
-                tfidf_scores = {mot: tf_scores[mot] * idf_scores[mot] for mot in tf_scores}
+        with open(file_path, 'r') as file:
+            text = file.read()
 
-    return tfidf_scores
+        tf_dict = calculer_frequence_mots(text)
 
+        idf_dict = calculer_idf(repertoire_corpus)
+
+        for word in tf_dict:
+            if word not in tfidf_dict:
+                tfidf_dict[word] = tf_dict[word] * idf_dict.get(word, 0)
+            else:
+                tfidf_dict[word] += tf_dict[word] * idf_dict.get(word, 0)
+
+    return tfidf_dict
 
 
 
@@ -155,5 +160,12 @@ def mot_non_important(matrice):
                 liste_des_mot_non_important.append(mots[t[indice][1]])
     return set(liste_des_mot_non_important)
 
+max=0
+key =""
+for item in calculer_tf_idf("cleaned").items():
+    if item[1] > max:
+        max = item[1]
+        key=item[0]
+    
 
-print(calculer_tf_idf("cleaned"))
+print(max, key)

@@ -138,34 +138,23 @@ def calculer_tf_idf(repertoire_corpus):
 
 
 
-def calculer_transposee(matrice):
-    nb_lignes = len(matrice)
-    nb_colonnes = len(matrice[0])
-    transposee = [[matrice[j][i] for j in range(nb_lignes)] for i in range(nb_colonnes)]
-    return transposee
 
-def mot_non_important(matrice):
-    liste_des_mot_non_important = []
-    t = []
-    liste = os.listdir("cleaned")  
-    for i in range(len(matrice)):
-        for j in range(len(matrice[i])):
-            if matrice[i][j] == 0:
-                tul = (i, j)
-                t.append(tul)
-    for indice in range(len(t)):
-        with open("cleaned/" + liste[t[indice][0]], 'r', encoding='utf-8') as f:
-                text = f.read()
-                mots = text.split()
-                liste_des_mot_non_important.append(mots[t[indice][1]])
-    return set(liste_des_mot_non_important)
+def mot_non_important(dico):
+    tab = []
+    for clé,val in dico.items():
+        if val == 0.0:
+            tab.append(clé)
+    return tab 
+ 
+ 
+def TD_IDF_MAX(dico):
+    tab = []
+    maxi = max(dico.values())
+    print(maxi)
+    for clé, val in dico.items():
+        if val == maxi:
+            tab.append(clé)
+    return tab
+        
 
-max=0
-key =""
-for item in calculer_tf_idf("cleaned").items():
-    if item[1] > max:
-        max = item[1]
-        key=item[0]
-    
-
-print(max, key)
+dico = calculer_tf_idf("cleaned")

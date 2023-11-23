@@ -110,7 +110,7 @@ def calculer_tf_idf(repertoire_corpus):
     tfidf_dict = {}
     files_names = [file for file in os.listdir(repertoire_corpus) if file.endswith(".txt")]
     for file_name in files_names:
-        with open(os.path.join(f"cleaned", file_name), 'r') as file:
+        with open(os.path.join(f"cleaned", file_name), 'r', encoding='utf-8') as file:
             text = file.read()
         tf_dict = calculer_frequence_mots(text)
         idf_dict = calculer_idf(repertoire_corpus)

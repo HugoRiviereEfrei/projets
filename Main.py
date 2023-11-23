@@ -131,13 +131,15 @@ def mot_non_important(dico):
  
  
 def TD_IDF_MAX(dico):
-    tab = []
+    a = ""
+    b = 0
     maxi = max(dico.values())
-    print(maxi)
     for clé, val in dico.items():
         if val == maxi:
-            tab.append(clé)
-    return tab
+            a = clé
+            b = val
+    return a,b
+            
     
     
 def mot_le_plus_dit_president(name):
@@ -159,40 +161,180 @@ def presidents_qui_ont_dit(mot):
     dit = []
     liste = os.listdir("cleaned")
     noms_presidents = nom_des_presidents()
+    presidents_ajoutes = set()
     for filename in liste:
         with open(os.path.join("cleaned", filename), "r", encoding="utf-8") as f:
             texte = f.read()
         freq = calculer_frequence_mots(texte)
         if mot.lower() in freq:
-            president = filename[11:-4]  
-            if president and president in noms_presidents:
-                dit.append((president, freq[mot.lower()]))
-    dit = sorted(dit, key=lambda x: x[1], reverse=True)
-    presidents_tries = [item[0] for item in dit]
-    return presidents_tries
+            for president in noms_presidents:
+                if president.lower() in filename.lower() and president not in presidents_ajoutes:
+                    dit.append((president, freq[mot.lower()]))
+                    presidents_ajoutes.add(president)
+    dit = sorted(dit, key=lambda x: (x[1], x[0]), reverse=True)
+    dit = list({item[0] for item in dit})
+    return dit
 
 
+def date_des_president():
+    dico = {}
+    date = [1995, 1974, 2012, 2017, 1981, 2007]
+    tab = nom_des_presidents()
+    for i in range(len(tab)):
+        dico[tab[i]] = date[i]
+    return sorted(dico.items(), key=lambda item: item[1])
 
-       
-def premier_president(theme):
+
+def le_premier_sur_le_theme(theme):
+    tab = []
     liste = os.listdir("cleaned")
-    n_president = nom_des_presidents()
-    dico_presidents = {}
-
+    t = dict(date_des_president())
     for i in range(len(liste)):
         with open(os.path.join("cleaned", liste[i]), "r", encoding="utf-8") as f:
-            ligne = f.readline()
-            mots = ligne.split()
-            if any(word.lower() in theme.lower() for word in mots):
-                if n_president[i] not in dico_presidents:
-                    dico_presidents[n_president[i]] = i
+            texte = f.read()
+        if theme.lower() in texte:
+            president = liste[i][11:-4]  
+            tab.append(president)
+    return sorted(tab, key=lambda x: t.get(x, 0), reverse=True)
+    
+            
+    
+def mots_dits_par_tous_les_presidents():
+    mots_dits = set()
+    noms_presidents = nom_des_presidents()
+    l_mot_non_important = mot_non_important(calculer_tf_idf("cleaned"))
+    for president in noms_presidents:
+        liste = os.listdir("cleaned")
+        for filename in liste:
+            if president in filename:
+                with open(os.path.join("cleaned", filename), "r", encoding="utf-8") as f:
+                    texte = f.read()
+                mots_du_president = set(calculer_frequence_mots(texte).keys())
+                mots_dits.update(mots_du_president)
 
-    return dico_presidents
+    mots_dits = [mot for mot in mots_dits if mot not in l_mot_non_important]
+    return list(mots_dits)
 
+    
+    
+            
+def main():
+    dico = calculer_tf_idf("cleaned")
+    demande = int(input("Quelle est votre demande ?" + "\n" +\
+                        "1- Liste des President" + "\n" +\
+                        "2- Liste des mots non imporants" + "\n" +\
+                        "3- Le mot le plus dit par les president" + "\n" +\
+                        "4- Mot le plus dit par " + "\n"+\
+                        "5- Qui a dit le mot " + "\n"+\
+                        "6- Quelle est l'anner des premier election des president" + "\n" +\
+                        "7- Premier President a avoir parler d'un theme" +"\n"+\
+                        "8- Liste des mot dit par tout les president" + "\n"))
+    
+    while demande not in [1,2,3,4,5,6,7,8]:
+        demande = int(input("Quelle est votre demande ?" + "\n" +\
+                        "1- Liste des President" + "\n" +\
+                        "2- Liste des mot nom imporant" + "\n" +\
+                        "3- Le mot le plus dit par les president" + "\n" +\
+                        "4- Mot le plus dit par " + "\n" +\
+                        "5- Qui a dit le mot " + "\n" +\
+                        "6- Quelle est l'anner des premier election des president" + "\n"+\
+                        "7- Premier President a avoir parler d'un theme" +"\n"+\
+                        "8- Liste des mot dit par tout les president" + "\n"))
+    if demande == 1:
+        print("\n" +\
+              "Liste des president: ")
+        tab = nom_des_presidents()
+        t = prenom_des_presidents(tab)
+        cpt = 1
+        for cle, valeur in t.items():
+           print(str(cpt) + "-" + valeur + " " + cle)
+           cpt +=1
+                    
+    if demande == 2:
+        tab = mot_non_important(dico)
+        print("Il y a " + str(len(tab)) + " mots non importants :")
+        print(tab)
+    
+    if demande == 3:
+        a , b = TD_IDF_MAX(dico)
+        print("\n" +\
+              "Le mot le plus dit par les president est '" + a + "' avec un TF-IDF de " + str(b))
+        
+    if demande == 4:
+        a = int(input("\n" +\
+                      "Chosiser un president :" + "\n" +\
+                      "1- Chirac" + "\n" +\
+                      "2- Giscard dEstaing " + "\n" +\
+                      "3- Hollande" + "\n" +\
+                      "4- Macron" + "\n" +\
+                      "5- Mitterrand" + "\n" +\
+                      "6- Sarkozy" + "\n"))
+        while a not in [1,2,3,4,5,6]:
+            a = int(input("\n" +\
+                         "Chosiser un president :" + "\n" +\
+                          "1- Chirac" + "\n" +\
+                          "2- Giscard dEstaing " + "\n" +\
+                          "3- Hollande" + "\n" +\
+                          "4- Macron" + "\n" +\
+                          "5- Mitterrand" + "\n" +\
+                          "6- Sarkozy" + "\n"))
+        tab = nom_des_presidents()
+        clé , freq = mot_le_plus_dit_president(tab[a-1])
+        print("le mot le plus dit par " + tab[a-1] + " est '" + clé + "' a une frequence de " + str(freq))
+        
+    if demande == 5:
+        a = str(input("\n" +\
+            "Ecriver le mot que vous souhaiter chercher : "))
+        tab = presidents_qui_ont_dit(a)
+        i = 0
+        print("\n" +\
+              "Les president ayant dit '" + a + "' sont :")
+        while i < len(tab):
+            print(str(i+1) + "- " + tab[i])
+            i += 1 
+        print("Le president l'ayant le plus dit est " + tab[0])
+        
+        
+    if demande == 6:
+        a = int(input("\n" +\
+                      "Chosiser un president :" + "\n" +\
+                      "1- Chirac" + "\n" +\
+                      "2- Giscard dEstaing " + "\n" +\
+                      "3- Hollande" + "\n" +\
+                      "4- Macron" + "\n" +\
+                      "5- Mitterrand" + "\n" +\
+                      "6- Sarkozy" + "\n"))
+        
+        while a not in [1,2,3,4,5,6]:
+            a = int(input("\n" +\
+                          "Chosiser un president :" + "\n" +\
+                          "1- Chirac" + "\n" +\
+                          "2- Giscard dEstaing " + "\n" +\
+                          "3- Hollande" + "\n" +\
+                          "4- Macron" + "\n" +\
+                          "5- Mitterrand" + "\n" +\
+                          "6- Sarkozy" + "\n"))
+        tab = nom_des_presidents()
+        t = date_des_president()
+        for i in range(len(t)):
+            if tab[a-1] == t[i][0]:
+                print("\n" + tab[a-1] + " a été elu la premiere fois en " + str(t[i][1]))
+                
+        
+    if demande == 7:
+        a = str(input("\n" + "Entrer le theme que vous voulez chercher : "))
+        tab = le_premier_sur_le_theme(a)
+        print("n\" + Les présidents ayant parlé du theme sont :" + "\n")
+        for i in range(len(tab)):
+            print(str(i+1) + "- " + tab[i])
+            i += 1
+        print("Le President qui en a parle en premier est " + tab[-1])
+    
+    if demande == 8:
+        tab = mots_dits_par_tous_les_presidents()
+        print("Il y a " + str(len(tab)) + " mots dit par tout les president  :")
+        print(tab)
+    
+    
+main()
 
-
-print(nom_des_presidents())
-dico = calculer_tf_idf("cleaned")
-print(mot_le_plus_dit_president("Chirac"))
-print(presidents_qui_ont_dit("Nation"))
-print(premier_president("Ecologie"))

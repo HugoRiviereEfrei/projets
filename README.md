@@ -10,5 +10,11 @@ Dans ce fichier python sont regrouper tout les fonctions permettant le prétrait
 ->  Supprime les ponctuation de tout les texte contenue dans "cleaned".       
   
 ### Tf_idf : 
+Dans ce fichier sont regrouper tout les méthode permettant que calcule le TF-IDF et les associe a leurs mot :  
+->  
+->  
+->   
+
+###
 
 

@@ -6,15 +6,15 @@ Description
 
 ### nom_des_présidents:
 void -> list[str]  
-Retourne le nom de tout les présidents du corpus.
+Retourne le nom de tout les présidents de "speeches".
 
 ### prénom_des_présidents:
 list[str] -> dico{str : str}  
-Retourne le prénom de tout les présidents du corpus.
+Retourne le prénom de tout les présidents de "speeches".
 
 ### minuscule:
 void -> void  
-Créé le dossier cleaned si il n'existe pas et y met une copie en minuscule des fichiers du corpus.
+Créé le dossier cleaned si il n'existe pas et y met une copie en minuscule des fichiers de "speeches".
 
 ### enlever:
 void -> void  
@@ -26,7 +26,7 @@ Calcule la fréquence de chaque mot unique dans l'intégralité du texte.
 
 ### TF_par_texte:
 void -> dico{str : int}  
-Retourne un dictionnaire des occurences des mot de chaque texte du corpus.
+Retourne un dictionnaire des occurences des mot de chaque texte du "cleaned".
 
 ### calculer_idf:
 str -> dico{str : float}  
@@ -69,5 +69,7 @@ Interface d'utilisation du programme
 
 ## Utilisation
 Prérequis Assurez-vous d'avoir les discours des présidents stockés dans un dossier appelé "speeches" à côté du script Python. 
+
 ### Instructions  
-1. Mise en Minuscules des Discours Le programme commence par convertir tous les discours en minuscules et les stocke dans un dossier "cleaned". ```python minuscule()
+1. Mise en Minuscules des Discours Le programme commence par convertir tous les discours en minuscules et les stocke dans un dossier "cleaned". ``` python minuscule()
+2. 

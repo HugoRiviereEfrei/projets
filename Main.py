@@ -3,8 +3,8 @@ import math
 import random
 
 def nom_des_presidents():
-    liste = os.listdir("speeches")
     tab = []
+    liste = os.listdir("speeches")
     for name in liste:
         if name[-3:] != "txt":
             liste.remove(name)
@@ -19,7 +19,6 @@ def nom_des_presidents():
         
 
 def prenom_des_presidents(tab):
-    """Associe les nom des president et les prenom dans un dico"""
     dico = {}
     prenoms = ['Jacques', 'Valéry', 'François', 'Emmanuel', 'François', 'Nicolas']
     for i in range(len(tab)):
@@ -219,6 +218,9 @@ def mots_dits_par_tous_les_presidents():
     
             
 def main():
+    minuscule()
+    enlever()
+    os.chdir("..")
     dico = calculer_tf_idf("cleaned")
     demande = int(input("Quelle est votre demande ?" + "\n" +\
                         "1- Liste des President" + "\n" +\
@@ -261,7 +263,7 @@ def main():
               "Le mot le plus dit par les president est '" + a + "' avec un TF-IDF de " + str(b))
         
     if demande == 4:
-        a = int(input("\n" +\
+        name = int(input("\n" +\
                       "Chosiser un president :" + "\n" +\
                       "1- Chirac" + "\n" +\
                       "2- Giscard dEstaing " + "\n" +\
@@ -269,8 +271,8 @@ def main():
                       "4- Macron" + "\n" +\
                       "5- Mitterrand" + "\n" +\
                       "6- Sarkozy" + "\n"))
-        while a not in [1,2,3,4,5,6]:
-            a = int(input("\n" +\
+        while name not in [1,2,3,4,5,6]:
+            name = int(input("\n" +\
                          "Chosiser un president :" + "\n" +\
                           "1- Chirac" + "\n" +\
                           "2- Giscard dEstaing " + "\n" +\
@@ -279,24 +281,24 @@ def main():
                           "5- Mitterrand" + "\n" +\
                           "6- Sarkozy" + "\n"))
         tab = nom_des_presidents()
-        clé , freq = mot_le_plus_dit_president(tab[a-1])
-        print("le mot le plus dit par " + tab[a-1] + " est '" + clé + "' a une frequence de " + str(freq))
+        clé , freq = mot_le_plus_dit_president(tab[name-1])
+        print("le mot le plus dit par " + tab[name-1] + " est '" + clé + "' a une frequence de " + str(freq))
         
     if demande == 5:
-        a = str(input("\n" +\
+        mot = str(input("\n" +\
             "Ecriver le mot que vous souhaiter chercher : "))
-        tab = presidents_qui_ont_dit(a)
+        tab = presidents_qui_ont_dit(mot)
         i = 0
         print("\n" +\
-              "Les president ayant dit '" + a + "' sont :")
+              "Les president ayant dit '" + mot + "' sont :")
         while i < len(tab):
             print(str(i+1) + "- " + tab[i])
             i += 1 
-        print("Le president l'ayant le plus dit est " + tab[0])
+        print("Le president ayant dit le plus de fois le mot '" + mot + "' est " + tab[0])
         
         
     if demande == 6:
-        a = int(input("\n" +\
+        name = int(input("\n" +\
                       "Chosiser un president :" + "\n" +\
                       "1- Chirac" + "\n" +\
                       "2- Giscard dEstaing " + "\n" +\
@@ -305,8 +307,8 @@ def main():
                       "5- Mitterrand" + "\n" +\
                       "6- Sarkozy" + "\n"))
         
-        while a not in [1,2,3,4,5,6]:
-            a = int(input("\n" +\
+        while name not in [1,2,3,4,5,6]:
+            name = int(input("\n" +\
                           "Chosiser un president :" + "\n" +\
                           "1- Chirac" + "\n" +\
                           "2- Giscard dEstaing " + "\n" +\
@@ -317,13 +319,13 @@ def main():
         tab = nom_des_presidents()
         t = date_des_president()
         for i in range(len(t)):
-            if tab[a-1] == t[i][0]:
-                print("\n" + tab[a-1] + " a été elu la premiere fois en " + str(t[i][1]))
+            if tab[name-1] == t[i][0]:
+                print("\n" + tab[name-1] + " a été elu la premiere fois en " + str(t[i][1]))
                 
         
     if demande == 7:
-        a = str(input("\n" + "Entrer le theme que vous voulez chercher : "))
-        tab = le_premier_sur_le_theme(a)
+        theme = str(input("\n" + "Entrer le theme que vous voulez chercher : "))
+        tab = le_premier_sur_le_theme(theme)
         print("n\" + Les présidents ayant parlé du theme sont :" + "\n")
         for i in range(len(tab)):
             print(str(i+1) + "- " + tab[i])

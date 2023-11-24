@@ -3,6 +3,8 @@ import math
 import random
 
 def nom_des_presidents():
+    """void -> list[str]
+        Retourne le nom de tout les présidents de "speeches"."""
     tab = []
     liste = os.listdir("speeches")
     for name in liste:
@@ -19,6 +21,8 @@ def nom_des_presidents():
         
 
 def prenom_des_presidents(tab):
+    """list[str] -> dico{str : str}
+    Retourne le prénom de tout les présidents de "speeches"."""
     dico = {}
     prenoms = ['Jacques', 'Valéry', 'François', 'Emmanuel', 'François', 'Nicolas']
     for i in range(len(tab)):
@@ -28,6 +32,8 @@ def prenom_des_presidents(tab):
         
 
 def minuscule():
+    """void -> void
+    Créé le dossier cleaned si il n'existe pas et y met une copie en minuscule des fichiers de "speeches"."""
     if not os.path.exists("cleaned"):
         os.mkdir("cleaned")
     liste = os.listdir("speeches")
@@ -44,6 +50,9 @@ def minuscule():
         
 
 def enlever():
+    """void -> void
+    Enlèves chaque ponctuation et la remplace par un espace, sauf pour les apostrophes si il y a un "t" avant, on remplace aléatoirement " ' "
+    par e ou par a, sinon on remplace par e. Tout les tiret sont remplacer par un espace si il sont entre 2 mot, sinon on les remplace par le vide"""
     liste = os.listdir("..\cleaned")
     for name in liste:
         with open("..\cleaned\\" + name, "r", encoding="utf-8") as f:
@@ -69,6 +78,8 @@ def enlever():
             
             
 def calculer_frequence_mots(chainee):
+    """str -> Dico{str : int}
+    Calcule la fréquence de chaque mot unique dans l'intégralité du texte."""
     frequence_mots = {}
     mots = chainee.split()
     for mot in mots:
@@ -78,6 +89,8 @@ def calculer_frequence_mots(chainee):
 
 
 def TF_par_texte():
+    """void -> dico{str : int}
+    Retourne un dictionnaire des occurences des mot de chaque texte du "cleaned"."""
     analyse_textes = {}
     for texte in os.listdir("cleaned"):
         with open(f"cleaned/{texte}", "r", encoding="utf-8") as t:
@@ -86,6 +99,8 @@ def TF_par_texte():
 
     
 def calculer_idf(repertoire_corpus):
+    """str -> dico{str : float}
+    Calcul l'idf de chaque mot du texte."""
     nb_documents_contenant_mot = {}
     nb_doc = 0
     idf_scores = {}
@@ -106,6 +121,8 @@ def calculer_idf(repertoire_corpus):
 
 
 def calculer_tf_idf(repertoire_corpus):
+    """str -> dico{str : float}
+    Calcul le nombre tf-idf pour chaque mot unique. """
     tfidf_dict = {}
     files_names = [file for file in os.listdir(repertoire_corpus) if file.endswith(".txt")]
     for file_name in files_names:
@@ -122,6 +139,8 @@ def calculer_tf_idf(repertoire_corpus):
 
 
 def mot_non_important(dico):
+    """dico{str : float} -> list[str]
+    Retourne le mot le moins important du corpus. """
     tab = []
     for clé,val in dico.items():
         if val == 0.0:
@@ -129,9 +148,11 @@ def mot_non_important(dico):
     return tab 
  
  
-def TD_IDF_MAX(dico):
-    a = ""
-    b = 0
+def TF_IDF_MAX(dico):
+    """dico{str : float} -> tuple(str , float)
+    Retourne le mot le plus important du corpus. """
+    nom_du_president = ""
+     = 0
     maxi = max(dico.values())
     for clé, val in dico.items():
         if val == maxi:
@@ -142,6 +163,8 @@ def TD_IDF_MAX(dico):
     
     
 def mot_le_plus_dit_president(name):
+    """str -> tuple(str, float)
+    Retourne le mot le plus dit dans l'ensemble des nominations."""
     dico = {}
     liste = os.listdir("cleaned")
     for filename in liste:
@@ -157,6 +180,8 @@ def mot_le_plus_dit_president(name):
         
 
 def presidents_qui_ont_dit(mot):
+    """ str -> list[str]
+        Retourne tout les président qui on dit un certains mot."""
     dit = []
     liste = os.listdir("cleaned")
     noms_presidents = nom_des_presidents()
@@ -176,6 +201,8 @@ def presidents_qui_ont_dit(mot):
 
 
 def date_des_president():
+    """ void : dico{str : int}
+        Associe chaque président à leur date de début de mandat."""
     dico = {}
     date = [1995, 1974, 2012, 2017, 1981, 2007]
     tab = nom_des_presidents()
@@ -185,6 +212,8 @@ def date_des_president():
 
 
 def le_premier_sur_le_theme(theme):
+    """str -> list[str]
+    Quel président a parlé en premier sur un certains thème """
     tab = []
     liste = os.listdir("cleaned")
     t = dict(date_des_president())
@@ -199,6 +228,8 @@ def le_premier_sur_le_theme(theme):
             
     
 def mots_dits_par_tous_les_presidents():
+    """void -> list[str]
+    Renvoie la liste des mots dit par tout les president et qui ne sont pas non important. """
     mots_dits = set()
     noms_presidents = nom_des_presidents()
     l_mot_non_important = mot_non_important(calculer_tf_idf("cleaned"))
@@ -218,6 +249,8 @@ def mots_dits_par_tous_les_presidents():
     
             
 def main():
+    """void -> void
+    Interface d'utilisation du programme """
     minuscule()
     enlever()
     os.chdir("..")

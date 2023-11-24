@@ -53,7 +53,7 @@ str -> list[str]
 Retourne tout les président qui on dit un certains mot.
 
 ### date_president:
-Void : dico{str : int}  
+void : dico{str : int}  
 Associe chaque président à leur date de début de mandat.
 
 ### le_premier_sur_le_theme:

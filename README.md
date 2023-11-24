@@ -1,7 +1,7 @@
 # projet python
 Ce projet a pour but de calculer la matrice tf-idf et de pouvoir en tirer des informations importante pour notre chat bot.
 ## Fonctions
-Entre -> Renvoie  
+Entrer -> Renvoie  
 Description
 
 ### nom_des_présidents:

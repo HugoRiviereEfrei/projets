@@ -152,12 +152,12 @@ def TF_IDF_MAX(dico):
     """dico{str : float} -> tuple(str , float)
     Retourne le mot le plus important du corpus. """
     nom_du_president = ""
-     = 0
+    valeur = 0
     maxi = max(dico.values())
     for clé, val in dico.items():
         if val == maxi:
-            a = clé
-            b = val
+            nom_du_president = clé
+            valeur = val
     return a,b
             
     

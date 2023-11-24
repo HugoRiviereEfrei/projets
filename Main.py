@@ -158,7 +158,7 @@ def TF_IDF_MAX(dico):
         if val == maxi:
             nom_du_president = clé
             valeur = val
-    return a,b
+    return nom_du_president , valeur
             
     
     

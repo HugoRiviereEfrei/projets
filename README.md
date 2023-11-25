@@ -1,5 +1,5 @@
 # projet python
-Equipe : Hugo Riviere et Valentin Belougne
+Equipe : Hugo Riviere et Valentin Belougne  
 Ce projet a pour but de calculer la matrice tf-idf et de pouvoir en tirer des informations importante pour notre chat bot.
 
 ### pre_traitement.py : 
@@ -31,5 +31,9 @@ Dans ce fichier sont regrouper les fonctionalité qui nous fallait dévelloper p
 Dans ce fichier est présent le menue ainsi que l'appel des fonction des pre traitements minimun et enlever.
 
 ### Utilisation 
-Il vous suffit de run le fichier main. Afin de garantire la fonctionnalite du menue il faut que si vous noté
+Il vous suffit de run le fichier main.  
+Afin de garentire la meilleur utilisation du menue il est a noté que lorsque le code vous propose plusieur option il faut rentre le chiffre   
+correspondant voulu.  
+
+
 

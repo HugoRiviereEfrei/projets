@@ -1,7 +1,8 @@
-# projet python
+# projet python 
 Equipe : Hugo Riviere et Valentin Belougne  
 Ce projet a pour but de calculer la matrice tf-idf et de pouvoir en tirer des informations importante pour notre chat bot.
 
+[Dépot git](https://github.com/HugoRiviereEfrei/projets.git)
 ### pre_traitement.py : 
 Dans ce fichier python sont regrouper tout les fonctions permettant le prétraitement du texte a savoir :  
 ->  Extrait les nom des presidents depuis le nom des fichiers du corpus "speeches", les doublons sont supprimer.   
@@ -34,6 +35,3 @@ Dans ce fichier est présent le menue ainsi que l'appel des fonction des pre tra
 Il vous suffit de run le fichier main.  
 Afin de garentire la meilleur utilisation du menue il est a noté que lorsque le code vous propose plusieur option il faut rentre le chiffre   
 correspondant voulu.  
-
-
-

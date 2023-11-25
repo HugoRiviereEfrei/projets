@@ -16,8 +16,12 @@ Dans ce fichier sont regrouper tout les méthode permettant que calcule le TF-ID
 ->  Crée la matrice TF-IDF.
 
 ### post_traitement.py :  
-->  
-->  
-->  
-
-
+Dans ce fichier sont regrouper les fonctionalité qui nous fallait dévelloper pour le chat bot : 
+->  Défini la liste des mot_nom_important (Mot ayant un TF-IDF = 0)  
+->  Défini le mot le plus dit par tout les president.  
+->  Défini le mot le plus dit par un président.  
+->  Rechercher les président qui ont dit un certain mot.  
+->  Défini la date de premiere election des president.  
+->  Défini la liste des president ayant parlé d'un theme.  
+->  Défini la liste des mot dit par tout les president.  
+ 

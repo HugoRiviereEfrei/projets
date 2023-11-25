@@ -16,8 +16,10 @@ def main():
     Interface d'utilisation du programme """
     minuscule()
     enlever()
-    os.chdir("..")
-    dico = calculer_tf_idf("cleaned")
+    #Ce replacer dans le bon dossier enlever nous place dans "cleaned", il faut revenir en arriere
+    os.chdir("..") 
+    dico = calculer_tf_idf("cleaned") 
+    #Il faut utiliser les nombre associer a chaque foncctionalité
     demande = int(input("Quelle est votre demande ?" + "\n" +\
                         "1- Liste des President" + "\n" +\
                         "2- Liste des mots non imporants" + "\n" +\

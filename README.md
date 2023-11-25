@@ -1,4 +1,5 @@
 # projet python
+Equipe : Hugo Riviere et Valentin Belougne
 Ce projet a pour but de calculer la matrice tf-idf et de pouvoir en tirer des informations importante pour notre chat bot.
 
 ### pre_traitement.py : 
@@ -24,4 +25,11 @@ Dans ce fichier sont regrouper les fonctionalité qui nous fallait dévelloper p
 ->  Défini la date de premiere election des president.  
 ->  Défini la liste des president ayant parlé d'un theme.  
 ->  Défini la liste des mot dit par tout les president.  
- 
+
+
+### Main()
+Dans ce fichier est présent le menue ainsi que l'appel des fonction des pre traitements minimun et enlever.
+
+### Utilisation 
+Il vous suffit de run le fichier main. Afin de garantire la fonctionnalite du menue il faut que si vous noté
+

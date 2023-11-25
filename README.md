@@ -13,7 +13,7 @@ Dans ce fichier python sont regrouper tout les fonctions permettant le prétrait
 Dans ce fichier sont regrouper tout les méthode permettant que calcule le TF-IDF et les associe a leurs mot :  
 ->  Calcule de la frequence des mot dans les texte.  
 ->  Calcule l'inverse de la frequence des document.  
-->  Crée 
+->  Crée la matrice TF-IDF.
 
 ### post_traitement.py :  
 ->  

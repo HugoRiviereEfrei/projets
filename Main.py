@@ -124,11 +124,14 @@ def main():
     if demande == 7:
         theme = str(input("\n" + "Entrer le theme que vous voulez chercher : "))
         tab = le_premier_sur_le_theme(theme)
-        print("n\" + Les présidents ayant parlé du theme sont :" + "\n")
-        for i in range(len(tab)):
-            print(str(i+1) + "- " + tab[i])
-            i += 1
-        print("Le President qui en a parle en premier est " + tab[-1])
+        if len(tab) == 0:
+            print("le mot ne ce trouve pas dans les Nomination")
+        else :
+            print("n\" + Les présidents ayant parlé du theme sont :" + "\n")
+            for i in range(len(tab)):
+                print(str(i+1) + "- " + tab[i])
+                i += 1
+            print("Le President qui en a parle en premier est " + tab[-1])
     
     if demande == 8:
         tab = mots_dits_par_tous_les_presidents()

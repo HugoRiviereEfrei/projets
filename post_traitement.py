@@ -94,18 +94,26 @@ def le_premier_sur_le_theme(theme):
     
 def mots_dits_par_tous_les_presidents():
     """void -> list[str]
-    Renvoie la liste des mots dit par tout les president et qui ne sont pas non important. """
-    mots_dits = set()
+    Renvoie la liste des mots dit par tous les president et qui ne sont pas non importants."""
+    mots_par_president = []
     noms_presidents = nom_des_presidents()
     l_mot_non_important = mot_non_important(calculer_tf_idf("cleaned"))
-    for president in noms_presidents:
+    if noms_presidents:
+        premier_president = noms_presidents[0]
         liste = os.listdir("cleaned")
+        for filename in liste:
+            if premier_president in filename:
+                with open(os.path.join("cleaned", filename), "r", encoding="utf-8") as f:
+                    texte = f.read()
+                mots_par_president = set(calculer_frequence_mots(texte).keys())
+    for president in noms_presidents[1:]:
+        liste = os.listdir("cleaned")
+        mots_du_president = set()
         for filename in liste:
             if president in filename:
                 with open(os.path.join("cleaned", filename), "r", encoding="utf-8") as f:
                     texte = f.read()
-                mots_du_president = set(calculer_frequence_mots(texte).keys())
-                mots_dits.update(mots_du_president)
-
-    mots_dits = [mot for mot in mots_dits if mot not in l_mot_non_important]
-    return list(mots_dits)
+                mots_du_president.update(set(calculer_frequence_mots(texte).keys()))
+                mots_par_president = mots_par_president.intersection(mots_du_president)
+    mots_par_president = [mot for mot in mots_par_president if mot not in l_mot_non_important]
+    return list(mots_par_president)

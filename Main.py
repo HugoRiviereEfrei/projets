@@ -142,7 +142,7 @@ def main():
         if demande == 9:
             Boucle = False
         print("" + "\n")
-        time.sleep(2) #Attendre 2s avant de relance le menu
+        time.sleep(5) #Attendre 5s avant de relance le menu
         os.system("clear") #clear la console
     
     

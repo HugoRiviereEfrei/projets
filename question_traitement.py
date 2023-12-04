@@ -110,7 +110,7 @@ def doc_similaire(texte):
         B.append(document_tfidf)
     similarites = [similarite_cosinus(A, doc) for doc in B]
     index_document_similaire = similarites.index(max(similarites))
-    return tab[index_document_similaire + 1]
+    return tab[index_document_similaire]
 
 print(doc_similaire("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
 

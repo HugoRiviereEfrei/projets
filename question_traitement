@@ -50,3 +50,17 @@ def IDF_question(texte):
             if cle == tab[i]:
                 dico[cle] = valeur
     return dico
+
+
+def TFIDF_question(texte):
+    dico = {}
+    TF = TF_question(texte)
+    IDF = IDF_question(texte)
+    for key, value in TF.items():
+        for cle, valeur in IDF.items():
+            if cle == key:
+                if key not in dico.keys():
+                    dico[key] = TF[key] * IDF.get(key, 0)
+                else :
+                    dico[key] += TF[key] * IDF.get(key, 0)
+    return dico

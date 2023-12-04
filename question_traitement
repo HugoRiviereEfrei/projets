@@ -64,3 +64,15 @@ def TFIDF_question(texte):
                 else :
                     dico[key] += TF[key] * IDF.get(key, 0)
     return dico
+
+def len_modif(texte):
+    dico = {}
+    d1 = TFIDF_question(texte)
+    d2 = calculer_tf_idf("cleaned")
+    for cle in d1.keys():
+        for key, value in d2.items():
+            if cle == key :
+                dico[key] = value
+    return 
+
+

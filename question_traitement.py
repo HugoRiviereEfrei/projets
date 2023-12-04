@@ -99,17 +99,18 @@ def similarite_cosinus(A, B):
 
     return produit / (norme_A * norme_B)
 
-A = TFIDF_question("bonjour comment allez vous")
-B = []
 
-for text in os.listdir("cleaned"):
-    document_text = open(f"cleaned/{text}", "r", encoding="utf-8").read()
-    document_tfidf = TFIDF_question(document_text)
-    B.append(document_tfidf)
+def doc_similaire(texte):
+    A = TFIDF_question(texte)
+    B = []
+    tab = os.listdir("cleaned")
+    for text in os.listdir("cleaned"):
+        document_text = open(f"cleaned/{text}", "r", encoding="utf-8").read()
+        document_tfidf = TFIDF_question(document_text)
+        B.append(document_tfidf)
+    similarites = [similarite_cosinus(A, doc) for doc in B]
+    index_document_similaire = similarites.index(max(similarites))
+    return tab[index_document_similaire + 1]
 
-
-similarites = [similarite_cosinus(A, doc) for doc in B]
-
-index_document_similaire = similarites.index(max(similarites))
-document_similaire = "cleaned_doc" + str(index_document_similaire + 1)
+print(doc_similaire("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
 

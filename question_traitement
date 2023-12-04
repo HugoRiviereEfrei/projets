@@ -16,7 +16,6 @@ def question_spliting(texte):
 
     return t
 
-
 def trouve_question_dans_texte(texte):
     t = []
     tab = question_spliting(texte)

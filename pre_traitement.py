@@ -89,7 +89,7 @@ def calculer_frequence_mots(chainee):
 
 def scal(A:dict, B:dict):
     dp = 0
-    for i,j  in A.items(), B.items():
+    for i,j  in [A.values()], [B.items()]:
         dp += (i*j)
     return dp
 

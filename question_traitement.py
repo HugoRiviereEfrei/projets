@@ -1,3 +1,10 @@
+
+
+import random
+
+from tf_idf import *
+
+
 def question_spliting(texte):
     t = []
     for i in range(len(texte)):
@@ -75,4 +82,35 @@ def len_modif(texte):
                 dico[key] = value
     return 
 
+
+def produit_scalaire(A, B):
+    return sum(A.get(word, 0) * B.get(word, 0) for word in set(A.keys()) & set(B.keys()))
+
+def norme_vecteur(A):
+    return math.sqrt(sum(val**2 for val in A.values()))
+
+def similarite_cosinus(A, B):
+    produit = produit_scalaire(A, B)
+    norme_A = norme_vecteur(A)
+    norme_B = norme_vecteur(B)
+
+    if norme_A == 0 or norme_B == 0:
+        return 0
+
+    return produit / (norme_A * norme_B)
+
+# Exemple d'utilisation avec un dictionnaire A (question) et une liste de dictionnaires B (matrice TF-IDF)
+A = TFIDF_question("bonjour comment allez vous")
+B = []
+
+for text in os.listdir("cleaned"):
+    document_text = open(f"cleaned/{text}", "r", encoding="utf-8").read()
+    document_tfidf = TFIDF_question(document_text)
+    B.append(document_tfidf)
+
+
+similarites = [similarite_cosinus(A, doc) for doc in B]
+
+index_document_similaire = similarites.index(max(similarites))
+document_similaire = "cleaned_doc" + str(index_document_similaire + 1)
 

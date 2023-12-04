@@ -1,5 +1,6 @@
 import os
 import random
+import math
 
 def nom_des_presidents():
     """void -> list[str]
@@ -85,3 +86,16 @@ def calculer_frequence_mots(chainee):
         mot = mot.lower()
         frequence_mots[mot] = frequence_mots.get(mot, 0) + 1
     return frequence_mots
+
+def scal(A:dict, B:dict):
+    return sum(x*y for x, y in zip(A.items(), B.items()))
+
+def norme(vec:dict):
+    sum_of_squares = sum(component ** 2 for component in vec.items())
+    
+    norme = math.sqrt(sum_of_squares)
+
+    return norme
+
+def simi(A:dict, B:dict):
+    return scal(A, B)/(norme(A)*norme(B))

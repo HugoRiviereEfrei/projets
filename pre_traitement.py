@@ -88,7 +88,10 @@ def calculer_frequence_mots(chainee):
     return frequence_mots
 
 def scal(A:dict, B:dict):
-    return sum(x*y for x, y in zip(A.items(), B.items()))
+    dp = 0
+    for i,j  in A.items(), B.items():
+        dp += (i*j)
+    return dp
 
 def norme(vec:dict):
     sum_of_squares = sum(component ** 2 for component in vec.items())

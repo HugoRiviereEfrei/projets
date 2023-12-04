@@ -1,0 +1,53 @@
+def question_spliting(texte):
+    t = []
+    for i in range(len(texte)):
+        if texte[i] == "-":
+            texte = texte[:i] + " " + texte[i + 1:]
+        elif texte[i] == "'":
+            if texte[i - 1] == "l":
+                texte = texte[:i] + random.choice(["a ", "e "]) + texte[i + 1:]
+            else:
+                texte = texte[:i] + "e" + texte[i + 1:]
+        elif texte[i] in "!#$%&()*+,./:;<=>?@[]^_`{|}~?":
+            texte = texte[:i] + " " + texte[i + 1:]
+        
+    for val in texte.split():
+        t.append(val.lower())
+
+    return t
+
+
+def trouve_question_dans_texte(texte):
+    t = []
+    tab = question_spliting(texte)
+    dico = calculer_tf_idf("cleaned")
+    for i in range(len(tab)):
+        for cle in dico.keys():
+            if tab[i] == cle:
+                t.append(cle)
+    return t 
+        
+
+def TF_question(texte):
+    dico = {}
+    tab = trouve_question_dans_texte(texte)
+    for val in tab:
+        if val in dico.keys():
+            dico[val] += 1
+        else :
+            dico[val] = 1
+            
+    for cle, valeur in dico.items():
+        dico[cle] = valeur/len(tab)
+    
+    return dico
+
+def IDF_question(texte):
+    dico = {}
+    d = calculer_idf("cleaned")
+    tab = trouve_question_dans_texte(texte)
+    for i in range(len(tab)):
+        for cle, valeur in d.items():
+            if cle == tab[i]:
+                dico[cle] = valeur
+    return dico

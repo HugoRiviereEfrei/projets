@@ -99,7 +99,6 @@ def similarite_cosinus(A, B):
 
     return produit / (norme_A * norme_B)
 
-# Exemple d'utilisation avec un dictionnaire A (question) et une liste de dictionnaires B (matrice TF-IDF)
 A = TFIDF_question("bonjour comment allez vous")
 B = []
 

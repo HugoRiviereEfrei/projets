@@ -30,9 +30,10 @@ def main():
                             "6- Quelle est l'anner des premier election des president" + "\n" +\
                             "7- Premier President a avoir parler d'un theme" +"\n"+\
                             "8- Liste des mot dit par tout les president" + "\n"+\
-                            "9- Sortie" + "\n"))
+                            "9- Mode ChatBot in" + "\n" +\
+                            "10- Sortie" + "\n"))
         
-        while demande not in [1,2,3,4,5,6,7,8,9]:
+        while demande not in [1,2,3,4,5,6,7,8,9,10]:
             demande = int(input("Quelle est votre demande ?" + "\n" +\
                             "1- Liste des President" + "\n" +\
                             "2- Liste des mot nom imporant" + "\n" +\
@@ -42,7 +43,8 @@ def main():
                             "6- Quelle est l'anner des premier election des president" + "\n"+\
                             "7- Premier President a avoir parler d'un theme" +"\n"+\
                             "8- Liste des mot dit par tout les president" + "\n"+\
-                            "9- Sortie" +"\n"))
+                            "9- Mode ChatBot in" + "\n" +\
+                            "10- Sortie" +"\n"))
         if demande == 1:
             print("\n" +\
                   "Liste des president: ")
@@ -140,12 +142,18 @@ def main():
             tab = mots_dits_par_tous_les_presidents()
             print("Il y a " + str(len(tab)) + " mots dit par tout les president  :")
             print(tab)
-        if demande == 9:
-            Boucle = False
-        print("" + "\n")
-        time.sleep(5) #Attendre 5s avant de relance le menu
-        os.system("clear") #clear la console
-    
-    
-main()
 
+        if demande == 9:
+            print("Quelle est votre question :")
+            question = input("")
+            print(reperage(question))
+            
+        if demande == 10:
+            Boucle = False
+        
+        print("" + "\n")
+        time.sleep(6) #Attendre 5s avant de relance le menu
+        os.system("clear") #clear la console
+        
+        
+main()

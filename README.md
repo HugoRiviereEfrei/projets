@@ -25,7 +25,15 @@ Dans ce fichier sont regrouper les fonctionalité qui nous fallait dévelloper p
 ->  Rechercher les président qui ont dit un certain mot.  
 ->  Défini la date de premiere election des president.  
 ->  Défini la liste des president ayant parlé d'un theme.  
-->  Défini la liste des mot dit par tout les president.  
+->  Défini la liste des mot dit par tout les president.
+
+### question_traitement.py:
+-> Standardise la question posé par l'utilisateur
+-> Tokenise la questions
+-> Trouve le document le plus similaire au mot le plus important de la question
+-> Renvoie la réponse tiré du texte le plus similaire dont la phrase contient le mot
+-> On ajoute des formules de politesse à la reponse et un "."
+-> On renvoie la réponse à l'utilisateur
 
 
 ### Main()
@@ -34,7 +42,7 @@ Dans ce fichier est présent le menue ainsi que l'appel des fonction des pre tra
 ### Utilisation 
 Il faut vérifier qu'il n'y est pas autre que des .txt dans les fichier "cleaned" et "speeches"
 Il vous suffit de run le fichier main.  
-Afin de garentire la meilleur utilisation du menue il est a noté que lorsque le code vous propose plusieur option il faut rentre le chiffre   
+Afin de garantire la meilleur utilisation du menue il est a noté que lorsque le code vous propose plusieur option il faut rentre le chiffre   
 correspondant voulu.
 
 # Warning

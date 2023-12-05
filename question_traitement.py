@@ -130,28 +130,27 @@ def find_max_key_value(dictionary:dict):
     return max_key, max_value
 
 
-
 def reperage(texte):
     t = []
     v = []
+    res = ""
     file = doc_similaire(texte)
     val = TF_IDF_MAX(TFIDF_question(texte))
     with open(os.path.join("Duplicate", file), encoding="utf-8") as f:
         ligne = f.read()
         mot = ligne.split()
-        print(mot)
     for i in range(len(mot)):
-        if mot[i] in ".?!":
+        if mot[i][-1] in ".?!":
             t.append(i)
         if mot[i] == val[0]:
             v.append(i)
-    
-    res=[]
-    for i in range(len(t)):
-        if i%2:
-            if t[i-1]< v[0] and t[i]> v[0]:
-                res = mot[t[i-1]::t[i]]
-    print(res)
+    with open(os.path.join("Duplicate", file), encoding="utf-8") as f:
+        ligne = f.read()
+        mot = ligne.split()
+    for j in range(1,len(t)):
+        if t[j-1] < v[0] and t[j] > v[0]:
+            res += ' '.join(mot[t[j-1]+1:t[j]]) + "."
+    return res
 
 
 

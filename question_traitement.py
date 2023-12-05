@@ -1,8 +1,9 @@
-
-
+import string
 import random
-
 from tf_idf import *
+import os
+import math 
+from post_traitement import *
 
 
 def question_spliting(texte):

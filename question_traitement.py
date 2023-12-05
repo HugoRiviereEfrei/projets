@@ -131,8 +131,8 @@ def find_max_key_value(dictionary:dict):
 
 
 def reperage(texte):
-    t = []
-    v = []
+    index = []
+    value = []
     res = ""
     file = doc_similaire(texte)
     val = TF_IDF_MAX(TFIDF_question(texte))
@@ -141,15 +141,15 @@ def reperage(texte):
         mot = ligne.split()
     for i in range(len(mot)):
         if mot[i][-1] in ".?!":
-            t.append(i)
+            index.append(i)
         if mot[i] == val[0]:
-            v.append(i)
+            value.append(i)
     with open(os.path.join("Duplicate", file), encoding="utf-8") as f:
         ligne = f.read()
         mot = ligne.split()
-    for j in range(1,len(t)):
-        if t[j-1] < v[0] and t[j] > v[0]:
-            res += ' '.join(mot[t[j-1]+1:t[j]]) + "."
+    for j in range(1,len(index)):
+        if index[j-1] < value[0] and index[j] > value[0]:
+            res += ' '.join(mot[index[j-1]+1:index[j]]) + "."
     return res
 
 
@@ -171,9 +171,31 @@ def espacement():
         with open(os.path.join(duplicate_folder, name), "w", encoding="utf-8") as f:
             f.write(mod)
 
-a = doc_similaire("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?")
-b= find_max_key_value(TFIDF_question("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
+def beautifier(text):
 
-
-
-print(reponse("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
+    question_starters = {
+        "Comment": "Après une étude approfondie, ",
+        "Pourquoi": "En raison de divers facteurs, ",
+        "Peux-tu": "Bien entendu, c'est tout à fait faisable! ",
+        "Qu'est-ce que": "Permettez-moi de vous expliquer que ",
+        "Quand": "À ce moment précis, ",
+        "Où": "À cet endroit précis, ",
+        "Est-ce que": "Absolument, oui! ",
+        "Quel est": "Permettez-moi de détailler que ",
+        "Combien": "En quantité, cela se traduit par ",
+        "Quelle est": "Il est intéressant de noter que ",
+        "Pouvez-vous": "Je vous assure que vous pouvez! ",
+        "Connaissez-vous": "En effet, je suis bien informé sur ",
+        "Que pensez-vous de": "Ma perspective sur cela est que ",
+        "Avez-vous": "Bien sûr, j'ai ",
+        "Seriez-vous capable de": "Assurément, je pourrais ",
+    }
+    
+    rep = reperage(text)
+    
+    for key, value in question_starters.items():
+        if key in text:
+            rep = value + rep
+    if rep[-1] != ".":
+        rep.append(".")
+    return rep

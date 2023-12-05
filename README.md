@@ -35,4 +35,7 @@ Dans ce fichier est présent le menue ainsi que l'appel des fonction des pre tra
 Il faut vérifier qu'il n'y est pas autre que des .txt dans les fichier "cleaned" et "speeches"
 Il vous suffit de run le fichier main.  
 Afin de garentire la meilleur utilisation du menue il est a noté que lorsque le code vous propose plusieur option il faut rentre le chiffre   
-correspondant voulu.  
+correspondant voulu.
+
+# Warning
+Les mots comme climat et climatique ne peuvent pas être confondus de ce fait il ne faut pas espérer avoir la phrase désigné dans l'exemple

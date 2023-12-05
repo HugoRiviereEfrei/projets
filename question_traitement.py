@@ -128,16 +128,52 @@ def find_max_key_value(dictionary:dict):
     max_value = dictionary[max_key]
     return max_key, max_value
 
+
+
+def reperage(texte):
+    t = []
+    v = []
+    file = doc_similaire(texte)
+    val = TF_IDF_MAX(TFIDF_question(texte))
+    with open(os.path.join("Duplicate", file), encoding="utf-8") as f:
+        ligne = f.read()
+        mot = ligne.split()
+        print(mot)
+    for i in range(len(mot)):
+        if mot[i] in ".?!":
+            t.append(i)
+        if mot[i] == val[0]:
+            v.append(i)
+    
+    res=[]
+    for i in range(len(t)):
+        if i%2:
+            if t[i-1]< v[0] and t[i]> v[0]:
+                res = mot[t[i-1]::t[i]]
+    print(res)
+
+
+
+def espacement():
+    duplicate_folder = "Duplicate"
+    if not os.path.exists(duplicate_folder):
+        os.makedirs(duplicate_folder)
+    liste = os.listdir("speeches")
+    for name in liste:
+        with open(os.path.join("speeches", name), "r", encoding="utf-8") as f:
+            ligne = f.read()
+        mod = ""
+        for caractere in ligne:
+            if caractere in string.punctuation:
+                mod += " " + caractere
+            else:
+                mod += caractere
+        with open(os.path.join(duplicate_folder, name), "w", encoding="utf-8") as f:
+            f.write(mod)
+
 a = doc_similaire("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?")
 b= find_max_key_value(TFIDF_question("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
 
 
-def reponse(text:str):
-    a = doc_similaire(text)
-    b= find_max_key_value(TFIDF_question(text))
-
-    for line in open(f"cleaned/{a}", "r", encoding="utf-8").readlines():
-        if "climat" in line:
-            return line
 
 print(reponse("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))

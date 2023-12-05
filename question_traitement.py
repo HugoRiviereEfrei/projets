@@ -112,5 +112,32 @@ def doc_similaire(texte):
     index_document_similaire = similarites.index(max(similarites))
     return tab[index_document_similaire]
 
-print(doc_similaire("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
+def sim_max(texte):
+    A = TFIDF_question(texte)
+    B = []
+    tab = os.listdir("cleaned")
+    for text in os.listdir("cleaned"):
+        document_text = open(f"cleaned/{text}", "r", encoding="utf-8").read()
+        document_tfidf = TFIDF_question(document_text)
+        B.append(document_tfidf)
+    similarites = [similarite_cosinus(A, doc) for doc in B]
+    return max(similarites)
 
+def find_max_key_value(dictionary:dict):
+    max_key = max(dictionary, key=lambda k: dictionary[k])
+    max_value = dictionary[max_key]
+    return max_key, max_value
+
+a = doc_similaire("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?")
+b= find_max_key_value(TFIDF_question("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))
+
+
+def reponse(text:str):
+    a = doc_similaire(text)
+    b= find_max_key_value(TFIDF_question(text))
+
+    for line in open(f"cleaned/{a}", "r", encoding="utf-8").readlines():
+        if "climat" in line:
+            return line
+
+print(reponse("Peux-tu me dire comment une nation peut-elle prendre soin du climat ?"))

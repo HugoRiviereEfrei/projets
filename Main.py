@@ -153,7 +153,7 @@ def main():
             Boucle = False
         
         print("" + "\n")
-        time.sleep(6) #Attendre 5s avant de relance le menu
+        time.sleep(6) #Attendre 6s avant de relance le menu
         os.system("clear") #clear la console
         
         

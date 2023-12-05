@@ -3,6 +3,7 @@ import math
 import time
 from pre_traitement import *
 from post_traitement import *
+from question_traitement import *
 from tf_idf import *
 
 

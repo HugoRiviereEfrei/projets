@@ -1,6 +1,5 @@
 import os
 import random
-import math
 from tf_idf import *
 
 def nom_des_presidents():
@@ -78,13 +77,5 @@ def enlever():
             f.write(mod)
             
             
-def calculer_frequence_mots(chainee):
-    """str -> Dico{str : int}
-    Calcule la fréquence de chaque mot unique dans l'intégralité du texte."""
-    frequence_mots = {}
-    mots = chainee.split()
-    for mot in mots:
-        mot = mot.lower()
-        frequence_mots[mot] = frequence_mots.get(mot, 0) + 1
-    return frequence_mots
+
 

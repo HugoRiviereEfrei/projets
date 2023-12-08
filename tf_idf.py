@@ -1,6 +1,16 @@
 import math
 import os
-from pre_traitement import calculer_frequence_mots
+
+def calculer_frequence_mots(chainee):
+    """str -> Dico{str : int}
+    Calcule la fréquence de chaque mot unique dans l'intégralité du texte."""
+    frequence_mots = {}
+    mots = chainee.split()
+    for mot in mots:
+        mot = mot.lower()
+        frequence_mots[mot] = frequence_mots.get(mot, 0) + 1
+    return frequence_mots
+
 def TF_par_texte():
     """void -> dico{str : int}
     Retourne un dictionnaire des occurences des mot de chaque texte du "cleaned"."""

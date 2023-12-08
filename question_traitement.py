@@ -7,6 +7,8 @@ from post_traitement import *
 
 
 def question_spliting(texte):
+    """str -> list[str]
+       Enleve les ponctuation d'un texte et renvoie un tableau ayant pour valeur les mot de la question en minuscule"""
     t = []
     for i in range(len(texte)):
         if texte[i] == "-":
@@ -25,6 +27,8 @@ def question_spliting(texte):
     return t
 
 def trouve_question_dans_texte(texte):
+    """str -> list[str]
+       prend une question en valeur et supprime du tableau de question_spliting(texte) les mot qui ne sont pas dans les Nomination")"""
     t = []
     tab = question_spliting(texte)
     dico = calculer_tf_idf("cleaned")
@@ -36,6 +40,8 @@ def trouve_question_dans_texte(texte):
         
 
 def TF_question(texte):
+    """str -> dico[str] : float
+    Calcule la frequence des mot dans la question a savoir (mot dans la question et dans le texte)/taille de la question"""
     dico = {}
     tab = trouve_question_dans_texte(texte)
     for val in tab:
@@ -50,6 +56,8 @@ def TF_question(texte):
     return dico
 
 def IDF_question(texte):
+    """str -> dico[str] : float
+    Recuperer l'idf des mot present dans les nomination et la question (recuperer grace a calculer_idf de la parti 1)"""
     dico = {}
     d = calculer_idf("cleaned")
     tab = trouve_question_dans_texte(texte)

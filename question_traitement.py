@@ -69,6 +69,8 @@ def IDF_question(texte):
 
 
 def TFIDF_question(texte):
+    """str -> dico[str] : float
+       Fait la multiplication des TF de la question et des idf des mot contenue dans les nomination"""
     dico = {}
     TF = TF_question(texte)
     IDF = IDF_question(texte)

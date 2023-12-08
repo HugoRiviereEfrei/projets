@@ -6,7 +6,7 @@ import math
 from post_traitement import *
 
 
-def question_spliting(texte):
+def question_spliting(texte:str):
     """str -> list[str]
        Enleve les ponctuation d'un texte et renvoie un tableau ayant pour valeur les mot de la question en minuscule"""
     t = []
@@ -26,7 +26,7 @@ def question_spliting(texte):
 
     return t
 
-def trouve_question_dans_texte(texte):
+def trouve_question_dans_texte(texte:str):
     """str -> list[str]
        prend une question en valeur et supprime du tableau de question_spliting(texte) les mot qui ne sont pas dans les Nomination")"""
     t = []
@@ -39,7 +39,7 @@ def trouve_question_dans_texte(texte):
     return t 
         
 
-def TF_question(texte):
+def TF_question(texte:str):
     """str -> dico[str] : float
     Calcule la frequence des mot dans la question a savoir (mot dans la question et dans le texte)/taille de la question"""
     dico = {}
@@ -55,7 +55,7 @@ def TF_question(texte):
     
     return dico
 
-def IDF_question(texte):
+def IDF_question(texte:str):
     """str -> dico[str] : float
     Recuperer l'idf des mot present dans les nomination et la question (recuperer grace a calculer_idf de la parti 1)"""
     dico = {}
@@ -68,9 +68,9 @@ def IDF_question(texte):
     return dico
 
 
-def TFIDF_question(texte):
+def TFIDF_question(texte:str):
     """str -> dico[str] : float
-       Fait la multiplication des TF de la question et des idf des mot contenue dans les nomination"""
+       renvoie un dico avec en valeur la multiplication des TF de la question et des idf des mot contenue dans les nomination"""
     dico = {}
     TF = TF_question(texte)
     IDF = IDF_question(texte)
@@ -83,7 +83,7 @@ def TFIDF_question(texte):
                     dico[key] += TF[key] * IDF.get(key, 0)
     return dico
 
-def len_modif(texte):
+def len_modif(texte:str):
     """texte -> dico[str] : float
     ressort un dico des TF-IDF des nomination mais que les mot qui sont aussi présent dans la question"""
     dico = {}
@@ -96,13 +96,17 @@ def len_modif(texte):
     return 
 
 
-def produit_scalaire(A, B):
+def produit_scalaire(A:dict, B:dict):
+    """dico[str] : float, dico[str] : float -> dico[str] : float
+       renvoie le produit sacalaire des 2 TFIDF par mot"""
     return sum(A.get(word, 0) * B.get(word, 0) for word in set(A.keys()) & set(B.keys()))
 
-def norme_vecteur(A):
+def norme_vecteur(A:dict):
+    """dico[str] : float -> dico[str] : float
+       renvoie la norme des vecteurs contenue en valeur du dico dans un dico ayant en clé les mot et la norme en valeur"""
     return math.sqrt(sum(val**2 for val in A.values()))
 
-def similarite_cosinus(A, B):
+def similarite_cosinus(A:dict, B:dict):
     produit = produit_scalaire(A, B)
     norme_A = norme_vecteur(A)
     norme_B = norme_vecteur(B)
@@ -113,7 +117,7 @@ def similarite_cosinus(A, B):
     return produit / (norme_A * norme_B)
 
 
-def doc_similaire(texte):
+def doc_similaire(texte:str):
     A = TFIDF_question(texte)
     B = []
     tab = os.listdir("cleaned")
@@ -125,7 +129,7 @@ def doc_similaire(texte):
     index_document_similaire = similarites.index(max(similarites))
     return tab[index_document_similaire]
 
-def sim_max(texte):
+def sim_max(texte:str):
     A = TFIDF_question(texte)
     B = []
     tab = os.listdir("cleaned")
@@ -142,7 +146,7 @@ def find_max_key_value(dictionary:dict):
     return max_key, max_value
 
 
-def reperage(texte):
+def reperage(texte:str):
     index = []
     value = []
     res = ""
@@ -183,7 +187,7 @@ def espacement():
         with open(os.path.join(duplicate_folder, name), "w", encoding="utf-8") as f:
             f.write(mod)
 
-def beautifier(text):
+def beautifier(texte:str):
 
     question_starters = {
         "Comment": "Après une étude approfondie, ",
@@ -203,10 +207,10 @@ def beautifier(text):
         "Seriez-vous capable de": "Assurément, je pourrais ",
     }
     
-    rep = reperage(text)
+    rep = reperage(texte)
     
     for key, value in question_starters.items():
-        if key in text:
+        if key in texte:
             rep = value + rep
     if rep[-1] != ".":
         rep.append(".")

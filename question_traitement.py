@@ -84,6 +84,8 @@ def TFIDF_question(texte):
     return dico
 
 def len_modif(texte):
+    """texte -> dico[str] : float
+    ressort un dico des TF-IDF des nomination mais que les mot qui sont aussi présent dans la question"""
     dico = {}
     d1 = TFIDF_question(texte)
     d2 = calculer_tf_idf("cleaned")

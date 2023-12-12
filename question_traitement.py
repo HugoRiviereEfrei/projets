@@ -164,8 +164,11 @@ def reperage(texte:str):
         ligne = f.read()
         mot = ligne.split()
     for j in range(1,len(index)):
-        if index[j-1] < value[0] and index[j] > value[0]:
-            res += ' '.join(mot[index[j-1]+1:index[j]]) + "."
+        if  value !=[]:
+            if index[j-1] < value[0] and index[j] > value[0]:
+                res += ' '.join(mot[index[j-1]+1:index[j]]) + "."
+        else:
+            res = "Je suis incapable de répondre à votre question"
     return res
 
 
@@ -213,5 +216,5 @@ def beautifier(texte:str):
         if key in texte:
             rep = value + rep
     if rep[-1] != ".":
-        rep.append(".")
+        rep+"."
     return rep

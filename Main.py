@@ -147,13 +147,16 @@ def main():
         if demande == 9:
             print("Quelle est votre question :")
             question = input("")
-            print(reperage(question))
+            while question == "" or len(question.split()) == 1:
+                print("Quelle est votre question :")
+                question = input("")
+            print(beautifier(question))
             
         if demande == 10:
             Boucle = False
         
         print("" + "\n")
-        time.sleep(6) #Attendre 6s avant de relance le menu
+        time.sleep(6) #Attendre 5s avant de relance le menu
         os.system("clear") #clear la console
         
         

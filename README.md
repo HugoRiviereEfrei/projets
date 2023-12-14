@@ -36,8 +36,17 @@ Dans ce fichier sont regrouper les fonctionalité qui nous fallait dévelloper p
 -> On renvoie la réponse à l'utilisateur  
 
 
-### Main()
-Dans ce fichier est présent le menue ainsi que l'appel des fonction des pre traitements minimun et enlever.
+### Main :  
+Dans ce fichier on fait le prétraitement des documents ; ainsi que les fonctionaliter develloper au cour du projet :  
+-> Liste des nomination des président present dans le document  
+-> Liste des mots non imporants  
+-> Le mot le plus dit par les president  
+-> Mot le plus dit par un président spécifier  
+-> Liste des president qui on dit un mot spécifier  
+-> Quelle est l'anner des premiere elections des presidents  
+-> Premier President a avoir parler d'un theme  
+-> Liste des mot dit par tout les presidents  
+-> Le Mode Chatbot  
 
 ### Utilisation 
 Il faut vérifier qu'il n'y est pas autre que des .txt dans les fichier "cleaned" et "speeches"

@@ -99,7 +99,7 @@ def len_modif(texte:str):
 def produit_scalaire(A:dict, B:dict):
     """dico[str] : float, dico[str] : float -> dico[str] : float
        renvoie le produit sacalaire des 2 TFIDF par mot"""
-    return sum(A.get(word, 0) * B.get(word, 0) for word in set(A.keys()) & set(B.keys()))
+    return sum(A.get(word, 0) * B.get(word, 0) for word in set(A.keys()) & set(B.keys()))  #Recupere les clé des 2 dico puis fait le produit des valeur des mot en commun (0 si le mot n'est pas dans les clé), fait la somme de tout les produit afin d'obtenir le produit scalaire" 
 
 def norme_vecteur(A:dict):
     """dico[str] : float -> dico[str] : float

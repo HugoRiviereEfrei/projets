@@ -27,7 +27,6 @@ def TF_IDF_MAX(dico):
     Retourne le mot le plus important du corpus. """
     nom_du_president = ""
     valeur = 0
-    print(dico.values())
     maxi = max(dico.values())
     for clé, val in dico.items():
         if val == maxi:

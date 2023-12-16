@@ -1,3 +1,12 @@
+"""
+Projet Python:
+-----
+Riviere Hugo
+Belougne Valentin
+-----
+Implémentation principal de TF-IDF
+"""
+
 import math
 import os
 

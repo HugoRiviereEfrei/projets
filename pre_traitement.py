@@ -1,3 +1,12 @@
+"""
+Projet Python:
+-----
+Riviere Hugo
+Belougne Valentin
+-----
+Programme de pre-traitement
+"""
+
 import os
 import random
 from tf_idf import *

@@ -1,3 +1,12 @@
+"""
+Projet Python:
+-----
+Riviere Hugo
+Belougne Valentin
+-----
+Fonctions relatives à la seconde partie
+"""
+
 import string
 import random
 from tf_idf import *

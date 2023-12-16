@@ -1,3 +1,12 @@
+"""
+Projet Python:
+-----
+Riviere Hugo
+Belougne Valentin
+-----
+Programme de post traitement des textes
+"""
+
 import os
 from pre_traitement import nom_des_presidents
 from pre_traitement import calculer_frequence_mots

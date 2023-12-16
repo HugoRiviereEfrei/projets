@@ -1,3 +1,12 @@
+"""
+Projet Python:
+-----
+Riviere Hugo
+Belougne Valentin
+-----
+Programme principal
+"""
+
 import os
 import math
 import time

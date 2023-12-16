@@ -5,11 +5,11 @@ Ce projet a pour but de calculer la matrice tf-idf et de pouvoir en tirer des in
 [Dépot git](https://github.com/HugoRiviereEfrei/projets.git)
 
 ### Bibliotèque utiliser :
-->  os afin de faire de la manipulation de fichier : https://docs.python.org/fr/3/library/os.html  
-->  math afin de faire des operation particuliere comme la racine carrer : https://docs.python.org/fr/3/library/math.html  
-->  random afin de garandir des choix ou de la generation aleatoire : https://docs.python.org/fr/3/library/random.html  
-->  time afin de mettre un temps d'arret avant le relancement de la boucle principal du menue : https://docs.python.org/fr/3/library/time.html
-->  string utiliser lors du second traitement pour enlever les ponctuations de la question : https://docs.python.org/fr/3/library/string.html 
+->  os afin de faire de la manipulation de fichier : https://docs.python.org/fr/3/library/os.html    
+->  math afin de faire des operation particuliere comme la racine carrer : https://docs.python.org/fr/3/library/math.html   
+->  random afin de garandir des choix ou de la generation aleatoire : https://docs.python.org/fr/3/library/random.html    
+->  time afin de mettre un temps d'arret avant le relancement de la boucle principal du menue : https://docs.python.org/fr/3/library/time.html  
+->  string utiliser lors du second traitement pour enlever les ponctuations de la question : https://docs.python.org/fr/3/library/string.html   
 
 
 ### pre_traitement.py : 

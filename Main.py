@@ -9,6 +9,7 @@ Programme principal
 
 import os
 import math
+import platform
 import time
 from pre_traitement import *
 from post_traitement import *
@@ -166,7 +167,10 @@ def main():
         
         print("" + "\n")
         time.sleep(6) #Attendre 5s avant de relance le menu
-        os.system("clear") #clear la console
+        if platform.system()== "Windows":
+            os.system("cls")
+        else:
+            os.system("clear") #clear la console
         
         
 main()

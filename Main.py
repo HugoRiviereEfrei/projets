@@ -32,7 +32,7 @@ def main():
         remove()
         os.chdir("..")
         dico = calculate_tf_idf("cleaned")
-        demande = int(input("Quelle est votre demande ?" + "\n" +\
+        pre = input("Quelle est votre demande ?" + "\n" +\
                             "1- Liste des President" + "\n" +\
                             "2- Liste des mots non imporants" + "\n" +\
                             "3- Le mot le plus dit par les president" + "\n" +\
@@ -42,7 +42,23 @@ def main():
                             "7- Premier President a avoir parler d'un theme" +"\n"+\
                             "8- Liste des mot dit par tout les president" + "\n"+\
                             "9- Mode ChatBot in" + "\n" +\
-                            "10- Sortie" + "\n"))
+                            "10- Sortie" + "\n")
+        
+        while pre.isnumeric() == False:
+                    pre = input("Quelle est votre demande ?" + "\n" +\
+                            "1- Liste des President" + "\n" +\
+                            "2- Liste des mots non imporants" + "\n" +\
+                            "3- Le mot le plus dit par les president" + "\n" +\
+                            "4- Mot le plus dit par " + "\n"+\
+                            "5- Qui a dit le mot " + "\n"+\
+                            "6- Quelle est l'anner des premier election des president" + "\n" +\
+                            "7- Premier President a avoir parler d'un theme" +"\n"+\
+                            "8- Liste des mot dit par tout les president" + "\n"+\
+                            "9- Mode ChatBot in" + "\n" +\
+                            "10- Sortie" + "\n")
+                    
+        demande = int(pre)
+            
         
         while demande not in [1,2,3,4,5,6,7,8,9,10]:
             demande = int(input("Quelle est votre demande ?" + "\n" +\

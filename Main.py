@@ -29,9 +29,9 @@ def main():
     Boucle = True
     while Boucle :
         minuscule()
-        enlever()
+        remove()
         os.chdir("..")
-        dico = calculer_tf_idf("cleaned")
+        dico = calculate_tf_idf("cleaned")
         demande = int(input("Quelle est votre demande ?" + "\n" +\
                             "1- Liste des President" + "\n" +\
                             "2- Liste des mots non imporants" + "\n" +\
@@ -59,15 +59,15 @@ def main():
         if demande == 1:
             print("\n" +\
                   "Liste des president: ")
-            tab = nom_des_presidents()
-            t = prenom_des_presidents(tab)
+            tab = name_of_presidents()
+            t = first_name_of_presidents(tab)
             cpt = 1
             for cle, valeur in t.items():
                print(str(cpt) + "-" + valeur + " " + cle)
                cpt +=1
                         
         if demande == 2:
-            tab = mot_non_important(dico)
+            tab = non_important_word(dico)
             print("Il y a " + str(len(tab)) + " mots non importants :")
             print(tab)
         
@@ -94,14 +94,14 @@ def main():
                               "4- Macron" + "\n" +\
                               "5- Mitterrand" + "\n" +\
                               "6- Sarkozy" + "\n"))
-            tab = nom_des_presidents()
-            clé , freq = mot_le_plus_dit_president(tab[name-1])
+            tab = name_of_presidents()
+            clé , freq = most_said_word_by_president(tab[name-1])
             print("le mot le plus dit par " + tab[name-1] + " est '" + clé + "' a une frequence de " + str(freq))
             
         if demande == 5:
             mot = str(input("\n" +\
                 "Ecriver le mot que vous souhaiter chercher : "))
-            tab = presidents_qui_ont_dit(mot)
+            tab = presidents_who_said(mot)
             i = 0
             print("\n" +\
                   "Les president ayant dit '" + mot + "' sont :")
@@ -130,8 +130,8 @@ def main():
                               "4- Macron" + "\n" +\
                               "5- Mitterrand" + "\n" +\
                               "6- Sarkozy" + "\n"))
-            tab = nom_des_presidents()
-            t = date_des_president()
+            tab = name_of_presidents()
+            t = date_of_presidents()
             for i in range(len(t)):
                 if tab[name-1] == t[i][0]:
                     print("\n" + tab[name-1] + " a été elu la premiere fois en " + str(t[i][1]))
@@ -139,7 +139,7 @@ def main():
             
         if demande == 7:
             theme = str(input("\n" + "Entrer le theme que vous voulez chercher : "))
-            tab = le_premier_sur_le_theme(theme)
+            tab = first_on_the_theme(theme)
             if len(tab) == 0:
                 print("le mot ne ce trouve pas dans les Nomination")
             else :
@@ -150,7 +150,7 @@ def main():
                 print("Le President qui en a parle en premier est " + tab[-1])
         
         if demande == 8:
-            tab = mots_dits_par_tous_les_presidents()
+            tab = word_said_by_all_presidents()
             print("Il y a " + str(len(tab)) + " mots dit par tout les president  :")
             print(tab)
 

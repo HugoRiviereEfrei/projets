@@ -11,7 +11,7 @@ import os
 import random
 from tf_idf import *
 
-def nom_des_presidents():
+def name_of_presidents():
     """void -> list[str]
         Retourne le nom de tout les présidents de "speeches"."""
     tab = []
@@ -29,7 +29,7 @@ def nom_des_presidents():
     return tab
         
 
-def prenom_des_presidents(tab):
+def first_name_of_presidents(tab):
     """list[str] -> dico{str : str}
     Retourne le prénom de tout les présidents de "speeches"."""
     dico = {}
@@ -58,7 +58,7 @@ def minuscule():
         os.chdir("../speeches")
         
 
-def enlever():
+def remove():
     """void -> void
     Enlèves chaque ponctuation et la remplace par un espace, sauf pour les apostrophes si il y a un "t" avant, on remplace aléatoirement " ' "
     par e ou par a, sinon on remplace par e. Tout les tiret sont remplacer par un espace si il sont entre 2 mot, sinon on les remplace par le vide"""

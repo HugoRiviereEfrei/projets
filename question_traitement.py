@@ -35,12 +35,12 @@ def question_spliting(texte:str):
 
     return t
 
-def trouve_question_dans_texte(texte:str):
+def find_question_in_text(texte:str):
     """str -> list[str]
        prend une question en valeur et supprime du tableau de question_spliting(texte) les mot qui ne sont pas dans les Nomination")"""
     t = []
     tab = question_spliting(texte)
-    dico = calculer_tf_idf("cleaned")
+    dico = calculate_tf_idf("cleaned")
     for i in range(len(tab)):
         for cle in dico.keys():
             if tab[i] == cle:
@@ -52,7 +52,7 @@ def TF_question(texte:str):
     """str -> dico[str] : float
     Calcule la frequence des mot dans la question a savoir (mot dans la question et dans le texte)/taille de la question"""
     dico = {}
-    tab = trouve_question_dans_texte(texte)
+    tab = find_question_in_text(texte)
     for val in tab:
         if val in dico.keys():
             dico[val] += 1
@@ -68,8 +68,8 @@ def IDF_question(texte:str):
     """str -> dico[str] : float
     Recuperer l'idf des mot present dans les nomination et la question (recuperer grace a calculer_idf de la parti 1)"""
     dico = {}
-    d = calculer_idf("cleaned")
-    tab = trouve_question_dans_texte(texte)
+    d = calculate_idf("cleaned")
+    tab = find_question_in_text(texte)
     for i in range(len(tab)):
         for cle, valeur in d.items():
             if cle == tab[i]:
@@ -97,7 +97,7 @@ def len_modif(texte:str):
     ressort un dico des TF-IDF des nomination mais que les mot qui sont aussi présent dans la question"""
     dico = {}
     d1 = TFIDF_question(texte)
-    d2 = calculer_tf_idf("cleaned")
+    d2 = calculate_tf_idf("cleaned")
     for cle in d1.keys():
         for key, value in d2.items():
             if cle == key :
@@ -105,7 +105,7 @@ def len_modif(texte:str):
     return 
 
 
-def produit_scalaire(A:dict, B:dict):
+def dot_product(A:dict, B:dict):
     """dico[str] : float, dico[str] : float -> dico[str] : float
        renvoie le produit sacalaire des 2 TFIDF par mot"""
     return sum(A.get(word, 0) * B.get(word, 0) for word in set(A.keys()) & set(B.keys()))  #Recupere les clé des 2 dico puis fait le produit des valeur des mot en commun (0 si le mot n'est pas dans les clé), fait la somme de tout les produit afin d'obtenir le produit scalaire" 
@@ -115,8 +115,8 @@ def norme_vecteur(A:dict):
        renvoie la norme des vecteurs contenue en valeur du dico dans un dico ayant en clé les mot et la norme en valeur"""
     return math.sqrt(sum(val**2 for val in A.values()))
 
-def similarite_cosinus(A:dict, B:dict):
-    produit = produit_scalaire(A, B)
+def similarity_cosinus(A:dict, B:dict):
+    produit = dot_product(A, B)
     norme_A = norme_vecteur(A)
     norme_B = norme_vecteur(B)
 
@@ -126,7 +126,7 @@ def similarite_cosinus(A:dict, B:dict):
     return produit / (norme_A * norme_B)
 
 
-def doc_similaire(texte:str):
+def similar_doc(texte:str):
     A = TFIDF_question(texte)
     B = []
     tab = os.listdir("cleaned")
@@ -134,7 +134,7 @@ def doc_similaire(texte:str):
         document_text = open(f"cleaned/{text}", "r", encoding="utf-8").read()
         document_tfidf = TFIDF_question(document_text)
         B.append(document_tfidf)
-    similarites = [similarite_cosinus(A, doc) for doc in B]
+    similarites = [similarity_cosinus(A, doc) for doc in B]
     index_document_similaire = similarites.index(max(similarites))
     return tab[index_document_similaire]
 
@@ -146,7 +146,7 @@ def sim_max(texte:str):
         document_text = open(f"cleaned/{text}", "r", encoding="utf-8").read()
         document_tfidf = TFIDF_question(document_text)
         B.append(document_tfidf)
-    similarites = [similarite_cosinus(A, doc) for doc in B]
+    similarites = [similarity_cosinus(A, doc) for doc in B]
     return max(similarites)
 
 def find_max_key_value(dictionary:dict):
@@ -155,11 +155,11 @@ def find_max_key_value(dictionary:dict):
     return max_key, max_value
 
 
-def reperage(texte:str):
+def spotting(texte:str):
     index = []
     value = []
     res = ""
-    file = doc_similaire(texte)
+    file = similar_doc(texte)
     val = TF_IDF_MAX(TFIDF_question(texte))
     with open(os.path.join("Duplicate", file), encoding="utf-8") as f:
         ligne = f.read()
@@ -182,7 +182,7 @@ def reperage(texte:str):
 
 
 
-def espacement():
+def spacing():
     duplicate_folder = "Duplicate"
     if not os.path.exists(duplicate_folder):
         os.makedirs(duplicate_folder)
@@ -219,7 +219,7 @@ def beautifier(texte:str):
         "Seriez-vous capable de": "Assurément, je pourrais ",
     }
     
-    rep = reperage(texte)
+    rep = spotting(texte)
     
     for key, value in question_starters.items():
         if key in texte:

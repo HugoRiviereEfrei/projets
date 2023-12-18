@@ -8,11 +8,11 @@ Programme de post traitement des textes
 """
 
 import os
-from pre_traitement import nom_des_presidents
+from pre_traitement import name_of_presidents
 from pre_traitement import calculer_frequence_mots
-from tf_idf import calculer_tf_idf
+from tf_idf import calculate_tf_idf
 
-def mot_non_important(dico):
+def non_important_word(dico):
     """dico{str : float} -> list[str]
     Retourne le mot le moins important du corpus. """
     tab = []
@@ -36,7 +36,7 @@ def TF_IDF_MAX(dico):
             
     
     
-def mot_le_plus_dit_president(name):
+def most_said_word_by_president(name):
     """str -> tuple(str, float)
     Retourne le mot le plus dit dans l'ensemble des nominations."""
     dico = {}
@@ -53,12 +53,12 @@ def mot_le_plus_dit_president(name):
             
         
 
-def presidents_qui_ont_dit(mot):
+def presidents_who_said(mot):
     """ str -> list[str]
         Retourne tout les président qui on dit un certains mot."""
     dit = []
     liste = os.listdir("cleaned")
-    noms_presidents = nom_des_presidents()
+    noms_presidents = name_of_presidents()
     presidents_ajoutes = set()
     for filename in liste:
         with open(os.path.join("cleaned", filename), "r", encoding="utf-8") as f:
@@ -74,23 +74,23 @@ def presidents_qui_ont_dit(mot):
     return dit
 
 
-def date_des_president():
+def date_of_presidents():
     """ void : dico{str : int}
         Associe chaque président à leur date de début de mandat."""
     dico = {}
     date = [1995, 1974, 2012, 2017, 1981, 2007]
-    tab = nom_des_presidents()
+    tab = name_of_presidents()
     for i in range(len(tab)):
         dico[tab[i]] = date[i]
     return sorted(dico.items(), key=lambda item: item[1])
 
 
-def le_premier_sur_le_theme(theme):
+def first_on_the_theme(theme):
     """str -> list[str]
     Quel président a parlé en premier sur un certains thème """
     tab = []
     liste = os.listdir("cleaned")
-    t = dict(date_des_president())
+    t = dict(date_of_presidents())
     for i in range(len(liste)):
         with open(os.path.join("cleaned", liste[i]), "r", encoding="utf-8") as f:
             texte = f.read()
@@ -101,12 +101,12 @@ def le_premier_sur_le_theme(theme):
     
             
     
-def mots_dits_par_tous_les_presidents():
+def word_said_by_all_presidents():
     """void -> list[str]
     Renvoie la liste des mots dit par tous les president et qui ne sont pas non importants."""
     mots_par_president = []
-    noms_presidents = nom_des_presidents()
-    l_mot_non_important = mot_non_important(calculer_tf_idf("cleaned"))
+    noms_presidents = name_of_presidents()
+    l_mot_non_important = non_important_word(calculate_tf_idf("cleaned"))
     if noms_presidents:
         premier_president = noms_presidents[0]
         liste = os.listdir("cleaned")

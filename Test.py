@@ -2,16 +2,16 @@ from post_traitement import *
 from pre_traitement import *
 from question_traitement import *
 
-dico = calculer_tf_idf("cleaned")
+dico = calculate_tf_idf("cleaned")
 
 print("Test 1...", end="\r")
-tab = nom_des_presidents()
-t = prenom_des_presidents(tab)
+tab = name_of_presidents()
+t = first_name_of_presidents(tab)
 assert t == {'Chirac': 'Jacques', 'Giscard dEstaing': 'Valéry', 'Hollande': 'François', 'Macron': 'Emmanuel', 'Mitterrand': 'François', 'Sarkozy': 'Nicolas'}
 print("Test 1 ✅")
 
 print("Test 2...", end="\r")
-assert len(mot_non_important(dico)) == 32
+assert len(non_important_word(dico)) == 32
 print("Test 2 ✅")
 
 print("Test 3...", end="\r")
@@ -21,7 +21,7 @@ print("Test 3 ✅")
 
 print("Test 4...", end="\r")
 for i in range(1,7):
-    clé , freq = mot_le_plus_dit_president(tab[i-1])
+    clé , freq = most_said_word_by_president(tab[i-1])
     
     match clé:
         case "de":
@@ -34,17 +34,17 @@ print("Test 4 ✅")
 
 print("Test 5...", end="\r")
 word = "test_word"
-result = presidents_qui_ont_dit(word)
+result = presidents_who_said(word)
 
 
-expected_output = nom_des_presidents()+[[]]
+expected_output = name_of_presidents()+[[]]
 
 assert result is not None
 assert isinstance(result, list)
 assert result in expected_output
 
 empty_word = ""
-result_empty = presidents_qui_ont_dit(empty_word)
+result_empty = presidents_who_said(empty_word)
 
 expected_output_empty = []
 
@@ -55,8 +55,8 @@ print("Test 5 ✅")
 
 print("Test 6...", end="\r")
 set = "1995 1974 2012 2017 1981 2007"
-tab = nom_des_presidents()
-t = date_des_president()
+tab = name_of_presidents()
+t = date_of_presidents()
 for j in range(1,7):
     for i in range(len(t)):
         if tab[j-1] == t[i][0]:
@@ -64,7 +64,7 @@ for j in range(1,7):
 print("Test 6 ✅")
 
 print("Test 7...", end="\r")
-tab = mots_dits_par_tous_les_presidents()
+tab = word_said_by_all_presidents()
 assert len(tab) == 10
 print("Test 7 ✅")
 

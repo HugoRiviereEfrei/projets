@@ -20,7 +20,7 @@ def calculer_frequence_mots(chainee):
         frequence_mots[mot] = frequence_mots.get(mot, 0) + 1
     return frequence_mots
 
-def TF_par_texte():
+def TF_per_texte():
     """void -> dico{str : int}
     Retourne un dictionnaire des occurences des mot de chaque texte du "cleaned"."""
     analyse_textes = {}
@@ -30,7 +30,7 @@ def TF_par_texte():
     return analyse_textes
 
     
-def calculer_idf(repertoire_corpus):
+def calculate_idf(repertoire_corpus):
     """str -> dico{str : float}
     Calcul l'idf de chaque mot du texte."""
     nb_documents_contenant_mot = {}
@@ -52,7 +52,7 @@ def calculer_idf(repertoire_corpus):
     return idf_scores
 
 
-def calculer_tf_idf(repertoire_corpus):
+def calculate_tf_idf(repertoire_corpus):
     """str -> dico{str : float}
     Calcul le nombre tf-idf pour chaque mot unique. """
     tfidf_dict = {}
@@ -61,7 +61,7 @@ def calculer_tf_idf(repertoire_corpus):
         with open(os.path.join(f"cleaned", file_name), 'r', encoding='utf-8') as file:
             text = file.read()
         tf_dict = calculer_frequence_mots(text)
-        idf_dict = calculer_idf(repertoire_corpus)
+        idf_dict = calculate_idf(repertoire_corpus)
         for word in tf_dict:
             if word not in tfidf_dict:
                 tfidf_dict[word] = tf_dict[word] * idf_dict.get(word, 0)
